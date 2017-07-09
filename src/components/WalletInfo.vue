@@ -38,6 +38,7 @@
   </v-flex>
 </template>
 <script>
+import { CONTRACT } from '../contract'
 
 export default {
   data () {
@@ -49,6 +50,21 @@ export default {
   },
 
   mounted () {
+    this.coinbase = CONTRACT._eth.coinbase
+
+    CONTRACT._eth.getBalance(this.coinbase, (err, bal) => {
+      if (!err) {
+        this.balance = web3.fromWei(bal, 'ether').toNumber()
+      }
+      console.log(err)
+    })
+
+    CONTRACT.balanceOf(this.coinbase, (err, tkns) => {
+      if (!err) {
+        this.tokens = web3.fromWei(tkns, 'ether').toNumber()
+      }
+      console.log(err)
+    })
 
   },
 
