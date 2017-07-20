@@ -7,12 +7,17 @@
       <v-alert error value="true" v-if="!metamask">
         This application requires the MetaMask Chrome Plugin
       </v-alert>
-      <v-container v-if="metamask">
-        <v-layout row>
-          <wallet-info></wallet-info>
-          <send-tokens></send-tokens>
-        </v-layout>
-      </v-container>
+      <template v-if="metamask">
+        <v-container>
+          <v-layout row class="pb-5">
+            <wallet-info></wallet-info>
+            <send-tokens></send-tokens>
+          </v-layout>
+          <v-layout row>
+            <transactions></transactions>
+          </v-layout>
+        </v-container>
+      </template>
     </main>
     <v-footer fixed>
       <span>&copy; 2017</span>
@@ -23,12 +28,14 @@
 <script>
 import WalletInfo from './components/WalletInfo.vue'
 import SendTokens from './components/SendTokens.vue'
+import Transactions from './components/Transactions.vue'
 
 export default {
 
   components: {
     WalletInfo,
-    SendTokens
+    SendTokens,
+    Transactions
   },
 
   data () {
